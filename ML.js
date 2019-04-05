@@ -1,12 +1,25 @@
 class moduleLoader {
 	constructor(path) {
+		//Constructs the path into the loader, this loads any module;
+		//If the path isn't relative, then the node.js
+		//loader will automatically assume that the module has been installed.
 		this.path = []
 		this.functions = []
+
+		//Adds the inital path to the object. Needs to have a path else cannot be added.
+		if (!path) //Checks if the path is undefined/null/empty
+		{
+			throw new Error('Empty or Undefined Path.');
+		}
 		this.path.push(path);
 		this.functions = require(path);
 		this.fkeys = Object.keys(this.functions);
 	}
 	adder(path) {
+		if (!path) //Checks if the path is undefined/null/empty
+		{
+			throw new Error('Empty or Undefined Path.');
+		}
 		this.path.push(path);
 		this.functions = Object.assign(this.functions, require(path));
 		this.fkeys = Object.keys(this.functions);
@@ -22,4 +35,4 @@ class moduleLoader {
 
 }
 
-module.exports.ModuleLoader = moduleLoader;
+module.exports = moduleLoader;
